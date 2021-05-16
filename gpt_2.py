@@ -207,9 +207,11 @@ def finetune(sess,
         batch_size=batch_size,
         temperature=1.0,
         top_k=40)
+        
+    prog = re.compile('.*/h[3-9][0-9].*')
 
     all_vars = [v for v in tf.compat.v1.trainable_variables() if 'model' in v.name]
-    train_vars = [v for v in all_vars if '/h' in v.name] if only_train_transformer_layers else all_vars
+    train_vars = [v for v in all_vars if prog.match(v.name)] if only_train_transformer_layers else all_vars
 
     if optimizer == 'adam':
         opt = tf.compat.v1.train.AdamOptimizer(learning_rate=learning_rate)
