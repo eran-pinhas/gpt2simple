@@ -208,7 +208,7 @@ def finetune(sess,
         temperature=1.0,
         top_k=40)
         
-    prog = re.compile('.*/h[3-9][0-9].*')
+    prog = re.compile('.*/h[4-9][0-9].*')
 
     all_vars = [v for v in tf.compat.v1.trainable_variables() if 'model' in v.name]
     train_vars = [v for v in all_vars if prog.match(v.name)] if only_train_transformer_layers else all_vars
